@@ -1,52 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <p>Titulli i librit<span id="title"></span></p>
     <p>Desctiption<span id="description"></span></p>
     <p>Autoret<span id="author"></span></p>
     <img src="#" id="img">
+    <input type="text" name="search-field" id="search-field" oninput="getInput(this)">
+    <button onclick="getBookData()">Search</button>
 
 
-    
     <script>
-        lexoTeDhenaObjekt();
+
+        var inputPerdoruesi = "";
+        // lexoTeDhenaObjekt();
         function lexoTeDhenaObjekt() {
-        /*    console.log("Hi nga funksioni qe lexon te dhena per nje objekt");
-            var emer = "Dojo";
-            var edukimi = ["bachelor", "master"];
-            var person = {"emer": "Coding", "mbiemer": "Dojo", "mosha": 20, "edukimi":["viti 1", "viti 2"]};
-            console.log(emer);
-            console.log("Elementi i dyte i arrayt eshte " + edukimi[1]);
-            console.log("Emri i personit eshte " + person.emer);
-            console.log("Edukimi me i fundit i personit eshte " + person.edukimi[1]);
+            /*    console.log("Hi nga funksioni qe lexon te dhena per nje objekt");
+                var emer = "Dojo";
+                var edukimi = ["bachelor", "master"];
+                var person = {"emer": "Coding", "mbiemer": "Dojo", "mosha": 20, "edukimi":["viti 1", "viti 2"]};
+                console.log(emer);
+                console.log("Elementi i dyte i arrayt eshte " + edukimi[1]);
+                console.log("Emri i personit eshte " + person.emer);
+                console.log("Edukimi me i fundit i personit eshte " + person.edukimi[1]);
+    
+               */
+            
 
-           */ 
-          var book = '{ "totalItems": 791,"items": [{"volumeInfo": {"title": "Adapting Tests in Linguistic and Cultural Situations","authors": ["Dragoş Iliescu"], "description": "This book provides a practical but scientifically grounded step-by-step approach to the adaptation of tests in linguistic and cultural contexts.","imageLinks": {"smallThumbnail": "http://books.google.com/books/content?id=Jxs3DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}}}]}';
-        console.log(book);
+            var bookObj = JSON.parse(book);
+            console.log(bookObj);
 
-        var bookObj = JSON.parse(book);
-        console.log(bookObj);
+            
 
-        var titull = bookObj.items[0].volumeInfo.title;
-        console.log(titull);
-        
-        var description = bookObj.items[0].volumeInfo.description;
-        console.log(description);
+            
+        }
 
-        var author = bookObj.items[0].volumeInfo.authors;
-        console.log(author);
+        async function getBookData(){
 
-        var bookImg = bookObj.items[0].volumeInfo.imageLinks.smallThumbnail;
-        console.log(bookImg);
+            var response = await fetch("https://www.googleapis.com/books/v1/volumes?q="+inputPerdoruesi);
+            var bookData = await response.json();
+            console.log(bookData);
+            lexoTeDhenaLiber(bookData);
+        }
 
+        // getBookData();
 
+        function lexoTeDhenaLiber(bookObj){
+            // debugger;
+            var titull = bookObj.items[0].volumeInfo.title;
+            console.log(titull);
+
+            var description = bookObj.items[0].volumeInfo.description;
+            console.log(description);
+
+            var author = bookObj.items[0].volumeInfo.authors;
+            console.log(author);
+
+            var bookImg = bookObj.items[0].volumeInfo.imageLinks.smallThumbnail;
+            console.log(bookImg);
+
+            var bookTitle = document.getElementById("title");
+            bookTitle.innerText=titull;
+
+            var bookDescription = document.getElementById("description");
+            bookDescription.innerText=description;
+
+            var bookAuthor = document.getElementById("author");
+            bookAuthor.innerText=author;
+
+            var bookImage = document.querySelector("img");
+            bookImage.src = bookImg;
+        }
+
+        function getInput(element){
+            inputPerdoruesi = element.value;
+            console.log(inputPerdoruesi);
         }
 
     </script>
 </body>
+
 </html>
