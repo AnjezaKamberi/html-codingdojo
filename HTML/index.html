@@ -6,13 +6,17 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Titulli i librit<span id="title"></span></p>
+    <p>Desctiption<span id="description"></span></p>
+    <p>Autoret<span id="author"></span></p>
+    <img src="#" id="img">
 
 
     
     <script>
         lexoTeDhenaObjekt();
         function lexoTeDhenaObjekt() {
-            console.log("Hi nga funksioni qe lexon te dhena per nje objekt");
+        /*    console.log("Hi nga funksioni qe lexon te dhena per nje objekt");
             var emer = "Dojo";
             var edukimi = ["bachelor", "master"];
             var person = {"emer": "Coding", "mbiemer": "Dojo", "mosha": 20, "edukimi":["viti 1", "viti 2"]};
@@ -21,7 +25,24 @@
             console.log("Emri i personit eshte " + person.emer);
             console.log("Edukimi me i fundit i personit eshte " + person.edukimi[1]);
 
-            var book = '{ "totalItems": 791,"items": [{"volumeInfo": {"title": "Adapting Tests in Linguistic and Cultural Situations","authors": ["Dragoş Iliescu"], "description": "This book provides a practical but scientifically grounded step-by-step approach to the adaptation of tests in linguistic and cultural contexts.","imageLinks": {"smallThumbnail": "http://books.google.com/books/content?id=Jxs3DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}}}]}';
+           */ 
+          var book = '{ "totalItems": 791,"items": [{"volumeInfo": {"title": "Adapting Tests in Linguistic and Cultural Situations","authors": ["Dragoş Iliescu"], "description": "This book provides a practical but scientifically grounded step-by-step approach to the adaptation of tests in linguistic and cultural contexts.","imageLinks": {"smallThumbnail": "http://books.google.com/books/content?id=Jxs3DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}}}]}';
+        console.log(book);
+
+        var bookObj = JSON.parse(book);
+        console.log(bookObj);
+
+        var titull = bookObj.items[0].volumeInfo.title;
+        console.log(titull);
+        
+        var description = bookObj.items[0].volumeInfo.description;
+        console.log(description);
+
+        var author = bookObj.items[0].volumeInfo.authors;
+        console.log(author);
+
+        var bookImg = bookObj.items[0].volumeInfo.imageLinks.smallThumbnail;
+        console.log(bookImg);
 
 
         }
